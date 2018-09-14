@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/touch-icon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="哈希," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBlack's Blog - So Naive" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="「NOI2017」蚯蚓排队问题描述  蚯蚓幼儿园有$n$只蚯蚓。幼儿园园长神刀手为了管理方便，时常让这些蚯蚓们列队表演。 所有蚯蚓用从 $1$ 到 $n$ 的连续正整数编号。每只蚯蚓的长度可以用一个正整数表示，根据入园要求，所有蚯蚓的长度都不超过 $6$ 。神刀手希望这些蚯蚓排成若干个队伍，初始时，每只蚯蚓各自排成一个仅有一只蚯蚓的队伍，该蚯蚓既在队首，也在队尾。 神刀手将会依次进行 $m$ 次操">
+<meta name="keywords" content="哈希">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOI2017 蚯蚓排队（哈希）">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/NOI2017-蚯蚓排队（哈希）/index.html">
+<meta property="og:site_name" content="OBlack&#39;s Blog - So Naive">
+<meta property="og:description" content="「NOI2017」蚯蚓排队问题描述  蚯蚓幼儿园有$n$只蚯蚓。幼儿园园长神刀手为了管理方便，时常让这些蚯蚓们列队表演。 所有蚯蚓用从 $1$ 到 $n$ 的连续正整数编号。每只蚯蚓的长度可以用一个正整数表示，根据入园要求，所有蚯蚓的长度都不超过 $6$ 。神刀手希望这些蚯蚓排成若干个队伍，初始时，每只蚯蚓各自排成一个仅有一只蚯蚓的队伍，该蚯蚓既在队首，也在队尾。 神刀手将会依次进行 $m$ 次操">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-04T13:57:14.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NOI2017 蚯蚓排队（哈希）">
+<meta name="twitter:description" content="「NOI2017」蚯蚓排队问题描述  蚯蚓幼儿园有$n$只蚯蚓。幼儿园园长神刀手为了管理方便，时常让这些蚯蚓们列队表演。 所有蚯蚓用从 $1$ 到 $n$ 的连续正整数编号。每只蚯蚓的长度可以用一个正整数表示，根据入园要求，所有蚯蚓的长度都不超过 $6$ 。神刀手希望这些蚯蚓排成若干个队伍，初始时，每只蚯蚓各自排成一个仅有一只蚯蚓的队伍，该蚯蚓既在队首，也在队尾。 神刀手将会依次进行 $m$ 次操">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/NOI2017-蚯蚓排队（哈希）/"/>
+
+
+
+
+
+  <title>NOI2017 蚯蚓排队（哈希） | OBlack's Blog - So Naive</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBlack's Blog - So Naive</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/NOI2017-蚯蚓排队（哈希）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBlack">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/OBlack.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBlack's Blog - So Naive">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NOI2017 蚯蚓排队（哈希）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T22:17:45+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,022字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="「NOI2017」蚯蚓排队"><a href="#「NOI2017」蚯蚓排队" class="headerlink" title="「NOI2017」蚯蚓排队"></a>「NOI2017」蚯蚓排队</h1><p><strong>问题描述</strong></p>
+<blockquote>
+<p>蚯蚓幼儿园有$n$只蚯蚓。幼儿园园长神刀手为了管理方便，时常让这些蚯蚓们列队表演。</p>
+<p>所有蚯蚓用从 $1$ 到 $n$ 的连续正整数编号。每只蚯蚓的长度可以用一个正整数表示，根据入园要求，所有蚯蚓的长度都不超过 $6$ 。神刀手希望这些蚯蚓排成若干个队伍，初始时，每只蚯蚓各自排成一个仅有一只蚯蚓的队伍，该蚯蚓既在队首，也在队尾。</p>
+<p>神刀手将会依次进行 $m$ 次操作，每个操作都是以下三种操作中的一种：</p>
+<ol>
+<li><p>给出 $i$ 和 $j$ ，令 $i$ 号蚯蚓与 $j$ 号蚯蚓所在的两个队伍合并为一个队伍，具体来说，令 $j$ 号蚯蚓紧挨在 $i$ 号蚯蚓之后，其余蚯蚓保持队伍的前后关系不变。</p>
+</li>
+<li><p>给出 $i$ ，令 $i$ 号蚯蚓与紧挨其后的一只蚯蚓分离为两个队伍，具体来说，在分离之后， $i$ 号蚯蚓在其中一个队伍的队尾，原本紧挨其后的那一只蚯蚓在另一个队伍的队首，其余蚯蚓保持队伍的前后关系不变。</p>
+</li>
+<li><p>给出一个正整数 $k$ 和一个长度至少为 $k$ 的数字串 $s$ ，对于 $s$ 的每个长度为 $k$ 的连续子串 $t$ （这样的子串共有 $|s|-k+1$ 个，其中 $|s|$ 为 $s$ 的长度），定义函数 $f(t)$ ，询问所有这些$f(t)$的<strong>乘积</strong>对 $998244353$ 取模后的结果。其中$f(t)$的定义如下：</p>
+</li>
+</ol>
+<p>对于当前的蚯蚓队伍，定义某个蚯蚓的<strong>向后 $k$ 数字串</strong>为：从该蚯蚓出发，沿队伍的向后方向，寻找最近的 $k$ 只蚯蚓（包括其自身），将这些蚯蚓的长度视作字符连接而成的数字串；如果这样找到的蚯蚓不足 $k$ 只，则其没有<strong>向后$k$数字串</strong>。例如蚯蚓的队伍为 $10$ 号蚯蚓在队首，其后是 $22$ 号蚯蚓，其后是 $3$ 号蚯蚓（为队尾），这些蚯蚓的长度分别为 $4$ 、 $5$ 、 $6$ ，则 $10$ 号蚯蚓的<strong>向后 $3$ 数字串</strong>为<code>456</code>， $22$ 号蚯蚓没有<strong>向后 $3$ 数字串</strong>，但其<strong>向后 $2$ 数字串</strong>为<code>56</code>，其<strong>向后 $1$ 数字串</strong>为<code>5</code>。</p>
+<p>而 $f(t)$ 表示所有蚯蚓中，<strong>向后 $k$ 数字串</strong>恰好为 $t$ 的蚯蚓只数。</p>
+</blockquote>
+<p><strong>输入格式</strong></p>
+<blockquote>
+<p>从标准输入读入数据。</p>
+<p>输入文件的第一行有两个正整数 $n,m$ ，分别表示蚯蚓的只数与操作次数。</p>
+<p>第二行包含 $n$ 个不超过 $6$ 的正整数，依次表示编号为 $1,2,\dots,n$ 的蚯蚓的长度。</p>
+<p>接下来 $m$ 行，每行表示一个操作。每个操作的格式可以为：</p>
+<ul>
+<li><p><code>1</code> $i$ $j$（$1 \leq i, j \leq n$）表示：令 $i$ 号与 $j$ 号蚯蚓<strong>所在</strong>的两个队伍合并为一个队伍，新队伍中， $j$ 号蚯蚓紧挨在 $i$ 号蚯蚓之后。保证在此操作之前， $i$ 号蚯蚓在某个队伍的队尾， $j$ 号蚯蚓在某个队伍的队首，且两只蚯蚓不在同一个队伍中。</p>
+</li>
+<li><p><code>2</code> $i$（$1 \leq i \leq n$）表示：令 $i$ 号蚯蚓与紧挨其后一个蚯蚓分离为两个队伍。保证在此操作之前， $i$ 号蚯蚓不是某个队伍的队尾。</p>
+</li>
+<li><p><code>3</code> $s$ $k$（$k$为正整数，$s$为一个长度至少为$k$的数字串）表示：询问 $s$ 的每个长度为 $k$ 的子串 $t$ 的 $f(t)$ 的乘积，对998244353取模的结果。 $f(t)$ 的定义见题目描述。</p>
+</li>
+</ul>
+<p>同一行输入的相邻两个元素之间，用恰好一个空格隔开。</p>
+<p>输入文件可能较大，请不要使用过于缓慢的读入方式。</p>
+</blockquote>
+<p><strong>输出格式</strong></p>
+<blockquote>
+<p>输出到标准输出。</p>
+<p>依次对于每个形如<code>3</code> $s$ $k$的操作，输出一行，仅包含一个整数，表示询问的结果。</p>
+</blockquote>
+<p><strong>样例输入</strong> </p>
+<blockquote>
+<p>5 9<br>3 1 3 5 3<br>3 333135 2<br>3 333135 1<br>1 1 3<br>1 2 5<br>1 3 2<br>1 5 4<br>3 333135 2<br>3 333135 1<br>3 333135 3</p>
+</blockquote>
+<p><strong>样例输出</strong> </p>
+<blockquote>
+<p>0<br>81<br>1<br>81<br>0</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+</blockquote>
+<p><strong>提示</strong></p>
+<blockquote>
+<p>保证 $n \leq 2 \times 10^{5}$，$m \leq 5 \times 10^{5}$，$k \leq 50$ 。</p>
+<p>设 $\sum |s|$ 为某个输入文件中所有询问的 $s$ 的长度总和，则 $\sum |s| \leq 10^{7}$  。</p>
+<p>设 $c$ 为某个输入文件中形如<code>2</code> $i$的操作的次数，则 $c \leq 10^{3}$ 。</p>
+<p>每个测试点的详细信息见下表：</p>
+<p>  <table class="ui celled center aligned table">  <thead>  <tr>  <th rowspan="1"> 测试点编号 </th>  <th rowspan="1"> $n$ </th>  <th rowspan="1"> $m$ </th>  <th rowspan="1"> $k$ </th>  <th rowspan="1"> $\sum |s|$ </th>  <th rowspan="1"> $c$ </th>  <th rowspan="1"> 全为$\texttt{1}$ </th>  </tr>  </thead>  <tbody>  <tr>  <td rowspan="1"> 1 </td>  <td rowspan="1"> $=1$ </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  <td rowspan="1"> $=1$ </td>  <td rowspan="5"> $\leq 10^{3}$ </td>  <td rowspan="2"> $=0$ </td>  <td rowspan="6"> No </td>  </tr>  <tr>  <td rowspan="1"> 2 </td>  <td rowspan="1"> $\leq 20$ </td>  <td rowspan="1"> $\leq 40$ </td>  <td rowspan="1"> $\leq 10$ </td>  </tr>  <tr>  <td rowspan="1"> 3 </td>  <td rowspan="1"> $\leq 150$ </td>  <td rowspan="1"> $\leq 2,000$ </td>  <td rowspan="3"> $\leq 50$ </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 4 </td>  <td rowspan="1"> $\leq 500$ </td>  <td rowspan="1"> $\leq 600$ </td>  <td rowspan="1"> $=0$ </td>  </tr>  <tr>  <td rowspan="1"> 5 </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  <td rowspan="1"> $\leq 2,000$ </td>  <td rowspan="2"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 6 </td>  <td rowspan="6"> $\leq 5 \times 10^{4}$ </td>  <td rowspan="4"> $\leq 6 \times 10^{4}$ </td>  <td rowspan="1"> $\leq 5$ </td>  <td rowspan="4"> $\leq 5 \times 10^{4}$ </td>  </tr>  <tr>  <td rowspan="1"> 7 </td>  <td rowspan="5"> $\leq 50$ </td>  <td rowspan="2"> $=0$ </td>  <td rowspan="1"> Yes </td>  </tr>  <tr>  <td rowspan="1"> 8 </td>  <td rowspan="5"> No </td>  </tr>  <tr>  <td rowspan="1"> 9 </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 10 </td>  <td rowspan="2"> $\leq 8 \times 10^{4}$ </td>  <td rowspan="2"> $\leq 2.5 \times 10^{6}$ </td>  <td rowspan="1"> $=0$ </td>  </tr>  <tr>  <td rowspan="1"> 11 </td>  <td rowspan="2"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 12 </td>  <td rowspan="6"> $\leq 10^{5}$ </td>  <td rowspan="4"> $\leq 1.1 \times 10^{5}$ </td>  <td rowspan="1"> $\leq 6$ </td>  <td rowspan="4"> $\leq 10^{5}$ </td>  </tr>  <tr>  <td rowspan="1"> 13 </td>  <td rowspan="5"> $\leq 50$ </td>  <td rowspan="2"> $=0$ </td>  <td rowspan="1"> Yes </td>  </tr>  <tr>  <td rowspan="1"> 14 </td>  <td rowspan="7"> No </td>  </tr>  <tr>  <td rowspan="1"> 15 </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 16 </td>  <td rowspan="2"> $\leq 1.5 \times 10^{5}$ </td>  <td rowspan="2"> $\leq 5 \times 10^{6}$ </td>  <td rowspan="1"> $=0$ </td>  </tr>  <tr>  <td rowspan="1"> 17 </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 18 </td>  <td rowspan="8"> $\leq 2 \times 10^{5}$ </td>  <td rowspan="2"> $\leq 5 \times 10^{5}$ </td>  <td rowspan="2"> $=1$ </td>  <td rowspan="2"> $\leq 10^{7}$ </td>  <td rowspan="1"> $=0$ </td>  </tr>  <tr>  <td rowspan="1"> 19 </td>  <td rowspan="2"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 20 </td>  <td rowspan="4"> $\leq 2.5 \times 10^{5}$ </td>  <td rowspan="1"> $\leq 7$ </td>  <td rowspan="4"> $\leq 2 \times 10^{5}$ </td>  </tr>  <tr>  <td rowspan="1"> 21 </td>  <td rowspan="5"> $\leq 50$ </td>  <td rowspan="2"> $=0$ </td>  <td rowspan="1"> Yes </td>  </tr>  <tr>  <td rowspan="1"> 22 </td>  <td rowspan="4"> No </td>  </tr>  <tr>  <td rowspan="1"> 23 </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  </tr>  <tr>  <td rowspan="1"> 24 </td>  <td rowspan="2"> $\leq 3 \times 10^{5}$ </td>  <td rowspan="2"> $\leq 10^{7}$ </td>  <td rowspan="1"> $=0$ </td>  </tr>  <tr>  <td rowspan="1"> 25 </td>  <td rowspan="1"> $\leq 10^{3}$ </td>  </tr>  </tbody>  </table><br>如果一个测试点的“全为<code>1</code>”的一列为“Yes”，表示该测试点的所有蚯蚓的长度均为1，并且所有询问串$s$的每一位也均为<code>1</code>。</p>
+</blockquote>
+<hr>
+<p>注意到这个题$k\leq 50$，那么我们考虑直接暴力维护所有长度在$[1,50]$之间的每种子串的数量，那么考虑用哈希+哈希表来维护每个子串的出现次数。然后修改用链表来实现，每次暴力维护跨过修改位置的子串即可。</p>
+<p>这样做的复杂度可以参考<a href="https://www.zhihu.com/question/62597216" target="_blank" rel="noopener">知乎lzz的回答</a></p>
+<hr>
+<p><strong>代码：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 200005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> M 100000000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">1</span>&lt;&lt;<span class="number">20</span>],*p1,*p2;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GC (p1==p2&amp;&amp;(p2=(p1=buf)+fread(buf,1,1000000,stdin),p1==p2)?0:*p1++)</span></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> _R(<span class="keyword">int</span> &amp;x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> t=GC;</span><br><span class="line">	<span class="keyword">while</span>(t&lt;<span class="number">48</span>||t&gt;<span class="number">57</span>)t=GC;</span><br><span class="line">	<span class="keyword">for</span>(x=<span class="number">0</span>;t&gt;<span class="number">47</span>&amp;&amp;t&lt;<span class="number">58</span>;t=GC)x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+t<span class="number">-48</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">int</span> _S(<span class="keyword">char</span> *c)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> *t=c,ch=GC;</span><br><span class="line">	<span class="keyword">while</span>(ch&lt;<span class="number">48</span>||ch&gt;<span class="number">57</span>)ch=GC;</span><br><span class="line">	<span class="keyword">for</span>(;ch&gt;<span class="number">47</span>&amp;&amp;ch&lt;<span class="number">58</span>;ch=GC)*t++=ch;</span><br><span class="line">	*t=<span class="number">0</span>;<span class="keyword">return</span> t-c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Mod=<span class="number">1e7</span>+<span class="number">233</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> ull pi=<span class="number">1234321237</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;<span class="keyword">return</span> <span class="number">1l</span>l*a*b%mod;&#125;</span><br><span class="line"><span class="keyword">int</span> n,m,A[N],pre[N],nex[N];</span><br><span class="line">ull Pow[N];</span><br><span class="line"><span class="keyword">char</span> s[N];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Hash_table</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> tot,las[Mod],nex[M],val[M];ull state[M];</span><br><span class="line">	<span class="keyword">int</span>&amp; <span class="keyword">operator</span>[](ull v)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> p=v%Mod;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=las[p];i;i=nex[i])</span><br><span class="line">		<span class="keyword">if</span>(state[i]==v)<span class="keyword">return</span> val[i];</span><br><span class="line">		state[++tot]=v;</span><br><span class="line">		nex[tot]=las[p];</span><br><span class="line">		las[p]=tot;</span><br><span class="line">		<span class="keyword">return</span> val[tot];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;Q;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i,j,k,x,y,p,q,ans,l;ull v1,v2;Pow[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	_R(n);_R(m);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)_R(A[i]);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=<span class="number">50</span>;i++)Pow[i]=Pow[i<span class="number">-1</span>]*pi;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)Q[A[i]]++;</span><br><span class="line">	<span class="keyword">while</span>(m--)</span><br><span class="line">	&#123;</span><br><span class="line">		_R(k);</span><br><span class="line">		<span class="keyword">if</span>(k==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			_R(x);_R(y);</span><br><span class="line">			pre[y]=x;nex[x]=y;v1=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(i=<span class="number">1</span>,p=x;p&amp;&amp;i&lt;<span class="number">50</span>;i++,p=pre[p])</span><br><span class="line">			&#123;</span><br><span class="line">				v1*=pi;v1+=A[p];v2=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span>(j=<span class="number">1</span>,q=y;q&amp;&amp;i+j&lt;=<span class="number">50</span>;j++,q=nex[q])</span><br><span class="line">				v2+=Pow[i+j<span class="number">-1</span>]*A[q],Q[v1+v2]++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(k==<span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			_R(x);y=nex[x];</span><br><span class="line">			pre[y]=nex[x]=<span class="number">0</span>;v1=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(i=<span class="number">1</span>,p=x;p&amp;&amp;i&lt;<span class="number">50</span>;i++,p=pre[p])</span><br><span class="line">			&#123;</span><br><span class="line">				v1*=pi;v1+=A[p];v2=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span>(j=<span class="number">1</span>,q=y;q&amp;&amp;i+j&lt;=<span class="number">50</span>;j++,q=nex[q])</span><br><span class="line">				v2+=Pow[i+j<span class="number">-1</span>]*A[q],Q[v1+v2]--;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			l=_S(s+<span class="number">1</span>);_R(x);v1=<span class="number">0</span>;ans=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span>(i=l;i&gt;l-x+<span class="number">1</span>;i--)v1=v1*pi+s[i]<span class="number">-48</span>;</span><br><span class="line">			<span class="keyword">for</span>(i=l-x+<span class="number">1</span>;i&gt;<span class="number">0</span>;i--)v1=v1*pi+s[i]<span class="number">-48</span>,ans=mul(ans,Q[v1]),v1-=Pow[x<span class="number">-1</span>]*(s[i+x<span class="number">-1</span>]<span class="number">-48</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/哈希/" rel="tag"> <i class="fa fa-tag"></i> 哈希</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/17/NOI2017-整数（线段树）/" rel="next" title="NOI2017 整数（线段树）">
+                <i class="fa fa-chevron-left"></i> NOI2017 整数（线段树）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/19/NOI2017-蔬菜（贪心-并查集-堆）/" rel="prev" title="NOI2017 蔬菜（贪心+并查集+堆）">
+                NOI2017 蔬菜（贪心+并查集+堆） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/OBlack.jpg"
+                alt="OBlack" />
+            
+              <p class="site-author-name" itemprop="name">OBlack</p>
+              <p class="site-description motion-element" itemprop="description">Life is short,AC more!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">226</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MogicianEvian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:378442635@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Comrades
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://starkmal.github.io" title="starkmal" target="_blank">starkmal</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jackpoison.github.io" title="Sparrow" target="_blank">Sparrow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.csdn.net/tompsongo" title="ThompsonGuo" target="_blank">ThompsonGuo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rgnoH.github.io" title="rgnoH" target="_blank">rgnoH</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://w33ho.github.io" title="Smile" target="_blank">Smile</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBlack</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">250.4k</span>
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

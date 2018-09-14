@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/touch-icon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="线段树,平衡树," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBlack's Blog - So Naive" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="问题描述从前有n只跳蚤排成一行做早操，每只跳蚤都有自己的一个弹跳力a[i]。跳蚤国王看着这些跳蚤国欣欣向荣的情景，感到非常高兴。这时跳蚤国王决定理性愉悦一下，查询区间k小值。 他每次向它的随从伏特提出这样的问题: 从左往右第x个到第y个跳蚤中，a[i]第k小的值是多少。 这可难不倒伏特，他在脑袋里使用函数式线段树前缀和的方法水掉了跳蚤国王的询问。  这时伏特发现有些跳蚤跳久了弹跳力会有变化，有的会">
+<meta name="keywords" content="线段树,平衡树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BZOJ3065 带插入区间Ｋ小值（替罪羊树套线段树）">
+<meta property="og:url" content="http://yoursite.com/2018/09/04/BZOJ3065-带插入区间K小值（替罪羊树套线段树）/index.html">
+<meta property="og:site_name" content="OBlack&#39;s Blog - So Naive">
+<meta property="og:description" content="问题描述从前有n只跳蚤排成一行做早操，每只跳蚤都有自己的一个弹跳力a[i]。跳蚤国王看着这些跳蚤国欣欣向荣的情景，感到非常高兴。这时跳蚤国王决定理性愉悦一下，查询区间k小值。 他每次向它的随从伏特提出这样的问题: 从左往右第x个到第y个跳蚤中，a[i]第k小的值是多少。 这可难不倒伏特，他在脑袋里使用函数式线段树前缀和的方法水掉了跳蚤国王的询问。  这时伏特发现有些跳蚤跳久了弹跳力会有变化，有的会">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-14T11:13:14.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BZOJ3065 带插入区间Ｋ小值（替罪羊树套线段树）">
+<meta name="twitter:description" content="问题描述从前有n只跳蚤排成一行做早操，每只跳蚤都有自己的一个弹跳力a[i]。跳蚤国王看着这些跳蚤国欣欣向荣的情景，感到非常高兴。这时跳蚤国王决定理性愉悦一下，查询区间k小值。 他每次向它的随从伏特提出这样的问题: 从左往右第x个到第y个跳蚤中，a[i]第k小的值是多少。 这可难不倒伏特，他在脑袋里使用函数式线段树前缀和的方法水掉了跳蚤国王的询问。  这时伏特发现有些跳蚤跳久了弹跳力会有变化，有的会">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/04/BZOJ3065-带插入区间K小值（替罪羊树套线段树）/"/>
+
+
+
+
+
+  <title>BZOJ3065 带插入区间Ｋ小值（替罪羊树套线段树） | OBlack's Blog - So Naive</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBlack's Blog - So Naive</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/BZOJ3065-带插入区间K小值（替罪羊树套线段树）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBlack">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/OBlack.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBlack's Blog - So Naive">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BZOJ3065 带插入区间Ｋ小值（替罪羊树套线段树）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T22:01:54+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,022字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><p>从前有n只跳蚤排成一行做早操，每只跳蚤都有自己的一个弹跳力a[i]。跳蚤国王看着这些跳蚤国欣欣向荣的情景，感到非常高兴。这时跳蚤国王决定理性愉悦一下，查询区间k小值。</p>
+<p>他每次向它的随从伏特提出这样的问题: 从左往右第x个到第y个跳蚤中，a[i]第k小的值是多少。 这可难不倒伏特，他在脑袋里使用函数式线段树前缀和的方法水掉了跳蚤国王的询问。 </p>
+<p>这时伏特发现有些跳蚤跳久了弹跳力会有变化，有的会增大，有的会减少。 这可难不倒伏特，他在脑袋里使用树状数组套线段树的方法水掉了跳蚤国王的询问。（orz 主席树） </p>
+<p>这时伏特发现有些迟到的跳蚤会插入到这一行的某个位置上，他感到非常生气，因为……他不会做了。 请你帮一帮伏特吧。 </p>
+<p>快捷版题意：带插入、修改的区间k小值在线查询。</p>
+<h5 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行一个正整数n，表示原来有n只跳蚤排成一行做早操。 </p>
+<p>第二行有n个用空格隔开的非负整数，从左至右代表每只跳蚤的弹跳力。 </p>
+<p>第三行一个正整数q，表示下面有多少个操作。 </p>
+<p>下面一共q行，一共三种操作对原序列的操作：（假设此时一共m只跳蚤）</p>
+<p><em>Q x y k: 询问从左至右第x只跳蚤到从左至右第y只跳蚤中，弹跳力第k小的跳蚤的弹跳力是多少。(1 &lt;= x &lt;= y &lt;= m, 1 &lt;= k &lt;= y - x + 1)</em></p>
+<p><em>M x val: 将从左至右第x只跳蚤的弹跳力改为val。 (1 &lt;= x &lt;= m)</em></p>
+<p><em>I x val: 在从左至右第x只跳蚤的前面插入一只弹跳力为val的跳蚤。即插入后从左至右第x只跳蚤是我刚插入的跳蚤。 (1 &lt;= x &lt;= m + 1)</em></p>
+<p>为了体现在线操作，设lastAns为上一次查询的时候程序输出的结果，如果之前没有查询过，则lastAns = 0。 </p>
+<p>则输入的时候实际是：</p>
+<p> Q _x _y _k ——&gt; 表示 Q _x^lastAns _y^lastAns _k^lastAns </p>
+<p>M _x _val ——&gt; 表示 M _x^lastAns _val^lastAns </p>
+<p>I _x _val ——&gt; 表示 I _x^lastAns _val^lastAns </p>
+<p>简单来说就是操作中输入的整数都要异或上一次询问的结果进行解码。</p>
+<h5 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h5><p>对于每个询问输出回答，每行一个回答。</p>
+<h5 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h5><p>10<br>10 5 8 28 0 19 2 31 1 22<br>30<br>I 6 9<br>M 1 11<br>I 8 17<br>M 1 31<br>M 6 26<br>Q 2 7 6<br>I 23 30<br>M 31 7<br>I 22 27<br>M 26 18<br>Q 26 17 31<br>I 5 2<br>I 18 13<br>Q 3 3 3<br>I 27 19<br>Q 23 23 30<br>Q 5 13 5<br>I 3 0<br>M 15 27<br>Q 0 28 13<br>Q 3 29 11<br>M 2 8<br>Q 12 5 7<br>I 30 19<br>M 11 19<br>Q 17 8 29<br>M 29 4<br>Q 3 0 12<br>I 7 18<br>M 29 27</p>
+<h5 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h5><p>28<br>2<br>31<br>0<br>14<br>15<br>14<br>27<br>15<br>14</p>
+<h5 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h5><p>原序列长度 &lt;= 35000</p>
+<p>插入个数 &lt;= 35000，修改个数 &lt;= 70000，查询个数 &lt;= 70000 ,0 &lt;= 每时每刻的权值 &lt;= 70000</p>
+<hr>
+<p>这是一道经典题了，推荐看 $\rm vfk$ 官方题解</p>
+<p>我写的替罪羊树套权值线段树的做法</p>
+<p>具体的说就是用替罪羊树维护序列，每个节点上挂一颗权值线段树记该节点及子节点中出现的权值</p>
+<p>那么建树的时候直接拍扁之后暴力建就行了，一次建树是 $n\log^2n$ 的，可以接受，据说可以线段树合并少一个 $\log$</p>
+<p>然后修改就直接做， $O(\log^2n)$</p>
+<p>插入的话也是直接在平衡树里找位置，然后沿着链往线段树里修改就行了， $O(\log^2n)$</p>
+<p>然后过于不平衡的时候就直接重建就行了，均摊下来 $O(n\log^3 n)$</p>
+<p>询问的时候像主席树那样把所有会用到的线段树的根先提出来，然后在线段树上二分， $O(\log^2 n)$</p>
+<p>然后要特别注意垃圾回收，不然很容易爆掉</p>
+<hr>
+<p><strong>代码：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 70005</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">1</span>&lt;&lt;<span class="number">20</span>],*p1,*p2;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GC (p1==p2&amp;&amp;(p2=(p1=buf)+fread(buf,1,1&lt;&lt;20,stdin),p1==p2)?0:*p1++)</span></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">int</span> _R()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> t=GC;<span class="keyword">int</span> x=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(t&lt;<span class="number">48</span>||t&gt;<span class="number">57</span>)t=GC;</span><br><span class="line">    <span class="keyword">for</span>(;t&gt;<span class="number">47</span>&amp;&amp;t&lt;<span class="number">58</span>;t=GC)x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+t<span class="number">-48</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">char</span> _C()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> t=GC;</span><br><span class="line">    <span class="keyword">while</span>(t&lt;<span class="string">'A'</span>||t&gt;<span class="string">'Z'</span>)t=GC;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> U=<span class="number">70000</span>;</span><br><span class="line"><span class="keyword">int</span> n,q,a[N],tot;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    node *ls,*rs;</span><br><span class="line">    <span class="keyword">int</span> v;</span><br><span class="line">&#125;seg[N*<span class="number">128</span>],*seg_tl,*seg_null,*seg_pool[N*<span class="number">128</span>],*use[N];<span class="keyword">int</span> ty[N],dt,seg_tp;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nodd</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    nodd *ls,*rs;node *rt;</span><br><span class="line">    <span class="keyword">int</span> v,sz;</span><br><span class="line">&#125;scape[N],**Rt,*rt,*tl,*null,*pool[N];<span class="keyword">int</span> tp;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    seg_tl=seg_null=seg;</span><br><span class="line">    seg_null-&gt;ls=seg_null-&gt;rs=seg_null;</span><br><span class="line">    rt=tl=null=scape;Rt=&amp;null;</span><br><span class="line">    null-&gt;ls=null-&gt;rs=null;</span><br><span class="line">    null-&gt;rt=seg_null;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//seg</span></span><br><span class="line"><span class="function">node *<span class="title">New</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *p=seg_tp?seg_pool[seg_tp--]:++seg_tl;</span><br><span class="line">    p-&gt;ls=p-&gt;rs=seg_null;p-&gt;v=<span class="number">0</span>;<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del</span><span class="params">(node *&amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==seg_null)<span class="keyword">return</span>;</span><br><span class="line">    seg_pool[++seg_tp]=p;</span><br><span class="line">    del(p-&gt;ls);del(p-&gt;rs);</span><br><span class="line">    p=seg_null;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(node *&amp;p,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> x,<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==seg_null)p=New();p-&gt;v+=d;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;v==<span class="number">0</span>)&#123;del(p);<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(l==r)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=mid)modify(p-&gt;ls,l,mid,x,d);</span><br><span class="line">    <span class="keyword">else</span> modify(p-&gt;rs,mid+<span class="number">1</span>,r,x,d);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//scape</span></span><br><span class="line"><span class="function">nodd *<span class="title">New</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    nodd *p=tp?pool[tp--]:++tl;</span><br><span class="line">    p-&gt;ls=p-&gt;rs=null;</span><br><span class="line">    p-&gt;sz=<span class="number">1</span>;p-&gt;v=x;</span><br><span class="line">    p-&gt;rt=seg_null;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(nodd *p)</span></span>&#123;p-&gt;sz=p-&gt;ls-&gt;sz+p-&gt;rs-&gt;sz+<span class="number">1</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">modify</span><span class="params">(nodd *p,<span class="keyword">int</span> x,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    modify(p-&gt;rt,<span class="number">0</span>,U,k,<span class="number">1</span>);<span class="keyword">int</span> t;</span><br><span class="line">    <span class="keyword">if</span>(x==p-&gt;ls-&gt;sz+<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        modify(p-&gt;rt,<span class="number">0</span>,U,p-&gt;v,<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">int</span> t=p-&gt;v;p-&gt;v=k;<span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=p-&gt;ls-&gt;sz)t=modify(p-&gt;ls,x,k);</span><br><span class="line">    <span class="keyword">else</span> t=modify(p-&gt;rs,x-p-&gt;ls-&gt;sz<span class="number">-1</span>,k);</span><br><span class="line">    modify(p-&gt;rt,<span class="number">0</span>,U,t,<span class="number">-1</span>);<span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(nodd *&amp;p,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    p=New(a[mid]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=l;i&lt;=r;i++)modify(p-&gt;rt,<span class="number">0</span>,U,a[i],<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(l&lt;mid)build(p-&gt;ls,l,mid<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span>(mid&lt;r)build(p-&gt;rs,mid+<span class="number">1</span>,r);</span><br><span class="line">    update(p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del</span><span class="params">(nodd *p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==null)<span class="keyword">return</span>;</span><br><span class="line">    del(p-&gt;ls);</span><br><span class="line">    a[++tot]=p-&gt;v;del(p-&gt;rt);</span><br><span class="line">    pool[++tp]=p;</span><br><span class="line">    del(p-&gt;rs);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rebuild</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tot=<span class="number">0</span>;del(*Rt);</span><br><span class="line">    build(*Rt,<span class="number">1</span>,tot);</span><br><span class="line">    Rt=&amp;null;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(nodd *&amp;p,<span class="keyword">int</span> x,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==null)&#123;p=New(k);modify(p-&gt;rt,<span class="number">0</span>,U,k,<span class="number">1</span>);<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;ls-&gt;sz&gt;=x)</span><br><span class="line">    &#123;</span><br><span class="line">        insert(p-&gt;ls,x,k);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;ls-&gt;sz&gt;=<span class="number">3</span>*p-&gt;sz&gt;&gt;<span class="number">2</span>)Rt=&amp;p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        insert(p-&gt;rs,x-p-&gt;ls-&gt;sz<span class="number">-1</span>,k);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rs-&gt;sz&gt;=<span class="number">3</span>*p-&gt;sz&gt;&gt;<span class="number">2</span>)Rt=&amp;p;</span><br><span class="line">    &#125;</span><br><span class="line">    modify(p-&gt;rt,<span class="number">0</span>,U,k,<span class="number">1</span>);update(p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getrt</span><span class="params">(nodd *p,<span class="keyword">int</span> k,<span class="keyword">int</span> f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==null||k==<span class="number">0</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(k==p-&gt;sz)&#123;use[++dt]=p-&gt;rt;ty[dt]=f;<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=p-&gt;ls-&gt;sz)getrt(p-&gt;ls,k,f);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        use[++dt]=p-&gt;rt;ty[dt]=f;</span><br><span class="line">        use[++dt]=p-&gt;rs-&gt;rt;ty[dt]=-f;</span><br><span class="line">        getrt(p-&gt;rs,k-p-&gt;ls-&gt;sz<span class="number">-1</span>,f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getans</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l=<span class="number">0</span>,r=U;dt=<span class="number">0</span>;</span><br><span class="line">    getrt(rt,y,<span class="number">1</span>);getrt(rt,x<span class="number">-1</span>,<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=dt;i++)sum+=ty[i]*use[i]-&gt;ls-&gt;v;</span><br><span class="line">        <span class="keyword">if</span>(sum&gt;=k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=dt;i++)use[i]=use[i]-&gt;ls;</span><br><span class="line">            r=mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=dt;i++)use[i]=use[i]-&gt;rs;</span><br><span class="line">            k-=sum;l=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j,k,x,y,z,las=<span class="number">0</span>;<span class="keyword">char</span> c;</span><br><span class="line">    n=_R();</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)a[i]=_R();</span><br><span class="line">    q=_R();</span><br><span class="line">    Init();build(rt,<span class="number">1</span>,n);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=q;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        c=_C();</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="string">'M'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x=_R();y=_R();</span><br><span class="line">            x^=las;y^=las;</span><br><span class="line">            modify(rt,x,y);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="string">'Q'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x=_R();y=_R();z=_R();</span><br><span class="line">            x^=las;y^=las;z^=las;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,las=getans(x,y,z));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="string">'I'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x=_R();y=_R();</span><br><span class="line">            x^=las;y^=las;x--;</span><br><span class="line">            insert(rt,x,y);</span><br><span class="line">            <span class="keyword">if</span>(*Rt!=null)rebuild();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/线段树/" rel="tag"> <i class="fa fa-tag"></i> 线段树</a>
+          
+            <a href="/tags/平衡树/" rel="tag"> <i class="fa fa-tag"></i> 平衡树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/09/CTSC-2018-青蕈领主（CDQ分治-NTT-栈）/" rel="next" title="CTSC 2018 青蕈领主（CDQ分治+NTT+单调栈）">
+                <i class="fa fa-chevron-left"></i> CTSC 2018 青蕈领主（CDQ分治+NTT+单调栈）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/14/SHOI2016-随机序列（线段树）/" rel="prev" title="SHOI2016 随机序列（线段树）">
+                SHOI2016 随机序列（线段树） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/OBlack.jpg"
+                alt="OBlack" />
+            
+              <p class="site-author-name" itemprop="name">OBlack</p>
+              <p class="site-description motion-element" itemprop="description">Life is short,AC more!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">226</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MogicianEvian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:378442635@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Comrades
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://starkmal.github.io" title="starkmal" target="_blank">starkmal</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jackpoison.github.io" title="Sparrow" target="_blank">Sparrow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.csdn.net/tompsongo" title="ThompsonGuo" target="_blank">ThompsonGuo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rgnoH.github.io" title="rgnoH" target="_blank">rgnoH</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://w33ho.github.io" title="Smile" target="_blank">Smile</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBlack</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">250.4k</span>
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
