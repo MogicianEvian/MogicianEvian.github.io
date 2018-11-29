@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="OBlack&#39;s Blog - So Naive">
 <meta property="og:description" content="[SDOI2016]模式字符串问题描述给出n个结点的树结构T，其中每一个结点上有一个字符，这里我们所说的字符只考虑大写字母A到Z,再给出长度为m的模式串s，其中每一位仍然是A到z的大写字母。 Alice希望知道，有多少对结点&amp;lt;u，v&amp;gt;满足T上从u到V的最短路径形成的字符串可以由模式串S重复若干次得到？这里结点对&amp;lt;u，v&amp;gt;是有序的，也就是说&amp;lt;u，v&amp;gt;和&amp;lt;v，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:57:14.998Z">
+<meta property="og:updated_time" content="2018-11-29T13:03:23.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SDOI 2016 模式字符串（点分治+哈希）">
 <meta name="twitter:description" content="[SDOI2016]模式字符串问题描述给出n个结点的树结构T，其中每一个结点上有一个字符，这里我们所说的字符只考虑大写字母A到Z,再给出长度为m的模式串s，其中每一位仍然是A到z的大写字母。 Alice希望知道，有多少对结点&amp;lt;u，v&amp;gt;满足T上从u到V的最短路径形成的字符串可以由模式串S重复若干次得到？这里结点对&amp;lt;u，v&amp;gt;是有序的，也就是说&amp;lt;u，v&amp;gt;和&amp;lt;v，">
@@ -407,7 +407,7 @@
 <p><strong>样例输出</strong><br>5</p>
 <hr>
 <p>此题是树上路径问题，显然考虑点分治，那么我们需要判断一条路径是否是给定串的倍数。</p>
-<p>考虑用哈希处理，我们将若干个模式串拼起来，得到一个长度大于等于n的串，然后求出这个串的前缀和后缀哈希值，这样我们点分治的时候，只需要从根出发，算算哈希值，就知道长度为$k$的前缀和后缀分别有多少个了，然后算一算就知道有多少符合条件的路径了，注意到长度$k$超过$m$的前缀和后缀直接累加到$k%m$上就行了。</p>
+<p>考虑用哈希处理，我们将若干个模式串拼起来，得到一个长度大于等于n的串，然后求出这个串的前缀和后缀哈希值，这样我们点分治的时候，只需要从根出发，算算哈希值，就知道长度为$k$的前缀和后缀分别有多少个了，然后算一算就知道有多少符合条件的路径了，注意到长度$k$超过$m$的前缀和后缀直接累加到$k\%m$上就行了。</p>
 <p>复杂度$O(n\log n)$</p>
 <hr>
 <p><strong>代码：</strong></p>
